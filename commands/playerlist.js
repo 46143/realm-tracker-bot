@@ -9,6 +9,7 @@ const { isValidRealmCode, isValidRealmId } = require('../stuff/utils/validation'
 const { blockIfWhitelisted } = require('../stuff/utils/whitelistGuard')
 const { successContainer, errorContainer, infoContainer, ComponentsV2Flags } = require('../stuff/utils/containers')
 const logger = require('../stuff/utils/logger')
+const path = require('path')
 
 const DEFAULT_UPDATE_INTERVAL_MS = 60_000 // 1 minute
 
@@ -195,7 +196,7 @@ module.exports = {
         
         const webhook = await interaction.channel.createWebhook({
             name: isSwightPvP ? 'Swight PvP Playerlist' : (isWearyPvP ? 'Weary PvP Playerlist' : 'Player List Bot'),
-            avatar: isSwightPvP ? 'C:\\Users\\Miguel\\Downloads\\cf4c6728671b8f5c8a2fb1d72a08faa6.png' : (isWearyPvP ? 'C:\\Users\\Miguel\\Downloads\\0548d9fbb44766bb353d2fd363ef5dba.png' : interaction.client.user.displayAvatarURL())
+            avatar: isSwightPvP ? path.join(__dirname, '../swight-pvp.png') : (isWearyPvP ? path.join(__dirname, '../weary-pvp.png') : interaction.client.user.displayAvatarURL())
         })
 
         // Send message with both header and player list embeds
