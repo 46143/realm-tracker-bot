@@ -1,5 +1,4 @@
 const { Client, GatewayIntentBits, Partials } = require('discord.js')
-const config = require('./config.json')
 const { connectDatabase, disconnectDatabase } = require('./database/mongodb')
 const { syncWhitelist } = require('./database/models/whitelist')
 const { refreshPremiumCache } = require('./database/models/premium')
@@ -14,6 +13,17 @@ const logger = require('./stuff/utils/logger')
 const fs = require('fs')
 const path = require('path')
 
+// Try to load config.json if it exists (for local development)
+let config = {}
+try {
+    const configPath = path.join(__dirname, 'config.json')
+    if (fs.existsSync(configPath)) {
+        config = require(configPath)
+    }
+} catch (err) {
+    logger.warn('config.json not found, using environment variables only')
+}
+
 // Use environment variables if available, otherwise fallback to config.json
 const envConfig = {
     token: process.env.DISCORD_TOKEN || config.token,
@@ -21,10 +31,8 @@ const envConfig = {
     clientId: process.env.CLIENT_ID || config.clientId,
     mongodbUri: process.env.MONGODB_URI || config.mongodbUri,
     logChannelId: process.env.LOG_CHANNEL_ID || config.logChannelId,
-    purgeChannelIds: process.env.PURGE_CHANNEL_IDS ? JSON.parse(process.env.PURGE_CHANNEL_IDS) : config.purgeChannelIds
+    purgeChannelIds: process.env.PURGE_CHANNEL_IDS ? JSON.parse(process.env.PURGE_CHANNEL_IDS) : (config.purgeChannelIds || [])
 }
-
-const configPath = path.join(__dirname, 'config.json')
 
 function getPurgeChannelIds() {
     try {
