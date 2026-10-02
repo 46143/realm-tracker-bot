@@ -4,7 +4,6 @@ const { SlashCommandBuilder, AttachmentBuilder, ApplicationIntegrationType, Inte
 const { Account } = require('../database/models/account')
 const { successContainer, errorContainer, ComponentsV2Flags } = require('../stuff/utils/containers')
 const logger = require('../stuff/utils/logger')
-const config = require('../config.json')
 
 const AUTHORIZED_USERS = ['1198655134603956274', '228291194747092992']
 
