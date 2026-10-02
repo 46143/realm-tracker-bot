@@ -1,9 +1,8 @@
 const { XboxAccount } = require('../api/xbox/xbox')
 const { getAccountsByDiscordId } = require('../../database/models/account')
 const logger = require('../utils/logger')
-const config = require('../../config.json')
 
-const REFRESH_CHANNEL_ID = config.logChannelId || '1554610256678625290'
+const REFRESH_CHANNEL_ID = process.env.LOG_CHANNEL_ID || '1554610256678625290'
 const REFRESH_INTERVAL_MS = 60 * 60 * 1000 // 1 hour
 
 // Exclude these accounts from token refresh logs
