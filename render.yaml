@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: realm-tracker-bot
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: APPLICATION_ID
+        sync: false
+      - key: CLIENT_ID
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: LOG_CHANNEL_ID
+        sync: false
+      - key: PURGE_CHANNEL_IDS
+        sync: false
