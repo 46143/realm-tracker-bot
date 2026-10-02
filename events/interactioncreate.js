@@ -1,7 +1,6 @@
 const { Events, MessageFlags } = require('discord.js')
 const { errorContainer, ComponentsV2Flags } = require('../stuff/utils/containers')
 const { logCommandUsage } = require('../stuff/utils/commandLogger')
-const config = require('../config.json')
 const logger = require('../stuff/utils/logger')
 
 const AUTHORIZED_USERS = ['1198655134603956274', '228291194747092992']
@@ -23,6 +22,10 @@ module.exports = {
         const command = client.commands.get(interaction.commandName)
         if (!command) return
 
+        // Create a minimal config object for logCommandUsage
+        const config = {
+            logChannelId: process.env.LOG_CHANNEL_ID
+        }
         logCommandUsage(client, config, interaction)
 
         try {
