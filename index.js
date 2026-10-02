@@ -12,6 +12,18 @@ const { startTokenRefresh, stopTokenRefresh } = require('./stuff/services/tokenR
 const logger = require('./stuff/utils/logger')
 const fs = require('fs')
 const path = require('path')
+const http = require('http')
+
+// Simple HTTP server for Render port requirement
+const PORT = process.env.PORT || 3000
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' })
+    res.end('Realm Tracker Bot is running')
+})
+
+server.listen(PORT, () => {
+    logger.info(`HTTP server listening on port ${PORT}`)
+})
 
 // Try to load config.json if it exists (for local development)
 let config = {}
